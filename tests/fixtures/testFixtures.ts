@@ -1,6 +1,7 @@
 import { test as base, Page, APIRequestContext } from '@playwright/test';
 import { LoginPage } from '../../src/ui/pages/loginPage';
 import { HomePage } from '../../src/ui/pages/homePage';
+import { GoogleSearchPage } from '../../src/ui/pages/googleSearchPage';
 import { UserApiClient } from '../../src/api/clients/userApiClient';
 import { configLoader } from '../../src/utils/configLoader';
 import { logger } from '../../src/utils/logger';
@@ -13,6 +14,7 @@ import { logger } from '../../src/utils/logger';
 type TestFixtures = {
   loginPage: LoginPage;
   homePage: HomePage;
+  googleSearchPage: GoogleSearchPage;
   userApiClient: UserApiClient;
   logMessage: (message: string) => void;
 };
@@ -30,6 +32,12 @@ export const test = base.extend<TestFixtures>({
     const homePage = new HomePage(page);
     logger.info('HomePage fixture initialized');
     await use(homePage);
+  },
+
+  googleSearchPage: async ({ page }, use) => {
+    const googleSearchPage = new GoogleSearchPage(page);
+    logger.info('GoogleSearchPage fixture initialized');
+    await use(googleSearchPage);
   },
 
   // User API Client fixture
